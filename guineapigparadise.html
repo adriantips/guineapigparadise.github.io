@@ -1,0 +1,1307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guinea Pig Paradise - Your Complete Care Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #87CEEB 0%, #98FB98 25%, #F0F8FF 50%, #E0FFFF 75%, #B0E0E6 100%);
+            min-height: 100vh;
+            color: #2c3e50;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(135, 206, 235, 0.4) 0%, transparent 50%),
+                radial-gradient(circle at 60% 40%, rgba(152, 251, 152, 0.3) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .floating-bubbles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .bubble {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            animation: float 15s infinite ease-in-out;
+            backdrop-filter: blur(10px);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            25% { transform: translateY(-20px) rotate(90deg); }
+            50% { transform: translateY(-40px) rotate(180deg); }
+            75% { transform: translateY(-20px) rotate(270deg); }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+            margin: 20px auto;
+            padding: 20px 0;
+            box-shadow: 
+                0 8px 32px rgba(31, 38, 135, 0.37),
+                inset 0 1px 0 rgba(255, 255, 255, 0.5);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 40px;
+        }
+
+        .logo {
+            font-size: 2.5em;
+            font-weight: bold;
+            background: linear-gradient(45deg, #2c3e50, #3498db, #27ae60);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(52, 152, 219, 0.5);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #2c3e50;
+            font-weight: 600;
+            padding: 12px 24px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, #3498db, #2980b9);
+            color: white;
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.2);
+            color: #2c3e50;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        main {
+            margin: 40px 0;
+        }
+
+        .page {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero {
+            text-align: center;
+            padding: 80px 0;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 30px;
+            margin: 40px 0;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 
+                0 8px 32px rgba(31, 38, 135, 0.37),
+                inset 0 1px 0 rgba(255, 255, 255, 0.5);
+        }
+
+        .hero h1 {
+            font-size: 4em;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #2c3e50, #3498db, #27ae60, #f39c12);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(52, 152, 219, 0.5);
+            animation: shimmer 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes shimmer {
+            0% { filter: hue-rotate(0deg); }
+            100% { filter: hue-rotate(30deg); }
+        }
+
+        .hero p {
+            font-size: 1.4em;
+            margin-bottom: 40px;
+            color: #34495e;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+
+        .content-card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 25px;
+            padding: 40px;
+            margin: 30px 0;
+            box-shadow: 
+                0 8px 32px rgba(31, 38, 135, 0.37),
+                inset 0 1px 0 rgba(255, 255, 255, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        .content-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 
+                0 15px 35px rgba(31, 38, 135, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.6);
+        }
+
+        .content-card h2 {
+            font-size: 2.5em;
+            margin-bottom: 25px;
+            color: #2c3e50;
+            text-align: center;
+            position: relative;
+        }
+
+        .content-card h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(45deg, #3498db, #27ae60);
+            border-radius: 2px;
+        }
+
+        .content-card h3 {
+            font-size: 1.8em;
+            margin: 30px 0 15px 0;
+            color: #3498db;
+        }
+
+        .content-card p {
+            line-height: 1.8;
+            margin-bottom: 20px;
+            color: #34495e;
+            font-size: 1.1em;
+        }
+
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .tip-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 25px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tip-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(45deg, #3498db, #27ae60, #f39c12);
+        }
+
+        .tip-card:hover {
+            transform: translateY(-3px);
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .tip-number {
+            display: inline-block;
+            background: linear-gradient(45deg, #3498db, #2980b9);
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 35px;
+            font-weight: bold;
+            margin-right: 15px;
+            box-shadow: 0 3px 10px rgba(52, 152, 219, 0.4);
+        }
+
+        .tip-title {
+            font-weight: 600;
+            color: #2c3e50;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+
+        .tip-content {
+            color: #34495e;
+            line-height: 1.6;
+        }
+
+        .form-container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 25px;
+            box-shadow: 
+                0 8px 32px rgba(31, 38, 135, 0.37),
+                inset 0 1px 0 rgba(255, 255, 255, 0.5);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 15px 20px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            color: #2c3e50;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #3498db;
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+        }
+
+        .form-group input::placeholder {
+            color: #7f8c8d;
+        }
+
+        .user-info {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 25px;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .user-info h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .feature-icon {
+            font-size: 3em;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+
+        .footer {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 25px;
+            padding: 40px;
+            text-align: center;
+            margin: 60px 0 20px 0;
+            color: #34495e;
+        }
+
+        .success-message {
+            background: rgba(39, 174, 96, 0.2);
+            border: 1px solid rgba(39, 174, 96, 0.4);
+            color: #27ae60;
+            padding: 15px;
+            border-radius: 15px;
+            margin: 20px 0;
+            text-align: center;
+            display: none;
+            backdrop-filter: blur(10px);
+        }
+
+        .error-message {
+            background: rgba(231, 76, 60, 0.2);
+            border: 1px solid rgba(231, 76, 60, 0.4);
+            color: #e74c3c;
+            padding: 15px;
+            border-radius: 15px;
+            margin: 20px 0;
+            text-align: center;
+            display: none;
+            backdrop-filter: blur(10px);
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .hero h1 {
+                font-size: 2.5em;
+            }
+
+            .tips-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .content-card {
+                padding: 25px;
+            }
+        }
+
+        .loading-spinner {
+            display: none;
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .profile-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #3498db, #27ae60);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2em;
+            color: white;
+            margin: 0 auto 20px auto;
+            font-weight: bold;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+            color: #3498db;
+            display: block;
+        }
+
+        .stat-label {
+            color: #34495e;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-bubbles"></div>
+    
+    <div class="container">
+        <header>
+            <nav>
+                <div class="logo">🐹 Guinea Pig Paradise</div>
+                <ul class="nav-links">
+                    <li><a href="#" onclick="showPage('home')" class="active">Home</a></li>
+                    <li><a href="#" onclick="showPage('about')">About</a></li>
+                    <li><a href="#" onclick="showPage('guide')">Care Guide</a></li>
+                    <li><a href="#" onclick="showPage('tips')">Tips</a></li>
+                </ul>
+                <div class="auth-buttons" id="authButtons">
+                    <a href="#" onclick="showPage('login')" class="btn btn-secondary">Login</a>
+                    <a href="#" onclick="showPage('signup')" class="btn btn-primary">Sign Up</a>
+                </div>
+                <div class="user-info" id="userInfo" style="display: none;">
+                    <div class="profile-avatar" id="userAvatar">U</div>
+                    <h3 id="userName">Welcome!</h3>
+                    <button onclick="logout()" class="btn btn-secondary">Logout</button>
+                </div>
+            </nav>
+        </header>
+
+        <main>
+            <!-- Home Page -->
+            <div id="home" class="page active">
+                <div class="hero">
+                    <h1>Welcome to Guinea Pig Paradise</h1>
+                    <p>Your ultimate destination for comprehensive guinea pig care, expert tips, and everything you need to ensure your furry friends live their happiest, healthiest lives.</p>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <span class="stat-number">25+</span>
+                            <div class="stat-label">Expert Tips</div>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-number">100%</span>
+                            <div class="stat-label">Vet Approved</div>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-number">24/7</span>
+                            <div class="stat-label">Support</div>
+                        </div>
+                    </div>
+                    <a href="#" onclick="showPage('guide')" class="btn btn-primary" style="font-size: 1.2em; padding: 15px 30px;">Start Learning</a>
+                </div>
+
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <span class="feature-icon">📚</span>
+                        <h3>Complete Care Guide</h3>
+                        <p>Comprehensive guide covering everything from basic care to advanced health management for your guinea pigs.</p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="feature-icon">💡</span>
+                        <h3>25 Expert Tips</h3>
+                        <p>Professional tips and tricks from veterinarians and experienced guinea pig owners to keep your pets thriving.</p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="feature-icon">🏥</span>
+                        <h3>Health & Nutrition</h3>
+                        <p>Learn about proper nutrition, common health issues, and when to seek veterinary care for your guinea pigs.</p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="feature-icon">🏠</span>
+                        <h3>Habitat Setup</h3>
+                        <p>Detailed instructions on creating the perfect living environment for your guinea pigs' comfort and safety.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- About Page -->
+            <div id="about" class="page">
+                <div class="content-card">
+                    <h2>About Guinea Pig Paradise</h2>
+                    <p>Guinea Pig Paradise was founded in 2020 by a team of passionate guinea pig enthusiasts, veterinarians, and animal care specialists who recognized the need for a comprehensive, reliable resource dedicated exclusively to guinea pig care and welfare.</p>
+                    
+                    <h3>Our Mission</h3>
+                    <p>Our mission is to provide every guinea pig owner with the knowledge, tools, and resources they need to give their beloved pets the best possible care. We believe that well-informed pet owners create happier, healthier guinea pigs, and we're committed to making expert-level care accessible to everyone.</p>
+                    
+                    <h3>What Makes Us Different</h3>
+                    <p>Unlike generic pet care websites, Guinea Pig Paradise focuses exclusively on cavies. This specialization allows us to provide incredibly detailed, species-specific information that you won't find elsewhere. Every piece of content on our site is reviewed by licensed veterinarians who specialize in exotic pets and small animals.</p>
+                    
+                    <h3>Our Expert Team</h3>
+                    <p>Our content is created and reviewed by a team of professionals including:</p>
+                    <p>• Licensed veterinarians specializing in exotic pets<br>
+                    • Certified animal behaviorists<br>
+                    • Experienced guinea pig breeders with 20+ years of experience<br>
+                    • Nutritionists specializing in small animal diets<br>
+                    • Rescue organization volunteers and shelter workers</p>
+                    
+                    <h3>Community Commitment</h3>
+                    <p>We're not just a website – we're a community. We partner with guinea pig rescue organizations worldwide, donate a portion of our proceeds to small animal welfare charities, and maintain active relationships with veterinary schools to ensure our information stays current with the latest research and best practices.</p>
+                    
+                    <h3>Continuous Improvement</h3>
+                    <p>The world of animal care is always evolving, and so are we. We regularly update our content based on the latest veterinary research, user feedback, and emerging best practices in guinea pig care. Our commitment to accuracy and excellence means you can trust the information you find here.</p>
+                    
+                    <h3>Contact Us</h3>
+                    <p>Have questions, suggestions, or want to share your guinea pig story? We'd love to hear from you! Reach out to us at contact@guineapigparadise.com or follow us on social media @GuineaPigParadise.</p>
+                </div>
+            </div>
+
+            <!-- Guide Page -->
+            <div id="guide" class="page">
+                <div class="content-card">
+                    <h2>The Complete Guinea Pig Care Guide</h2>
+                    
+                    <h3>Introduction to Guinea Pig Care</h3>
+                    <p>Guinea pigs, also known as cavies, are delightful, social creatures that make wonderful pets for families and individuals alike. These charming rodents originated in the Andes mountains of South America and have been domesticated for over 3,000 years. While they may seem simple to care for, guinea pigs have specific needs that must be met to ensure their health, happiness, and longevity.</p>
+                    
+                    <p>Proper guinea pig care encompasses several critical areas: appropriate housing, balanced nutrition, social interaction, health monitoring, and environmental enrichment. This comprehensive guide will walk you through each aspect of care, providing you with the knowledge and confidence to give your guinea pig the best possible life.</p>
+                    
+                    <h3>Housing and Habitat Requirements</h3>
+                    <p>The foundation of good guinea pig care begins with providing an appropriate living space. Guinea pigs are active animals that require substantial space to roam, explore, and exercise. The minimum cage size for one guinea pig should be at least 7.5 square feet, but bigger is always better. For two guinea pigs, you'll need at least 10.5 square feet, with an additional 2 square feet for each additional pig.</p>
+                    
+                    <p>The cage should be well-ventilated but not drafty, as guinea pigs are sensitive to temperature extremes. Wire-bottom cages should be avoided, as they can cause injuries to their delicate feet. Instead, opt for solid-bottom cages with appropriate bedding such as paper-based bedding, aspen shavings, or fleece liners. Cedar and pine shavings should be avoided as they can cause respiratory issues.</p>
+                    
+                    <p>Your guinea pig's habitat should include essential accessories: a water bottle with fresh water changed daily, food bowls for pellets and vegetables, a hay rack or area for timothy hay, hiding spots or igloos for security, and toys for mental stimulation. The cage should be cleaned regularly – spot cleaning daily and full cage cleaning weekly – to maintain a healthy environment.</p>
+                    
+                    <h3>Nutrition and Feeding Guidelines</h3>
+                    <p>Proper nutrition is crucial for guinea pig health and longevity. Guinea pigs have unique dietary requirements that differ significantly from other pets. Like humans, guinea pigs cannot produce their own vitamin C and must obtain it from their diet to prevent scurvy, a potentially fatal condition.</p>
+                    
+                    <p>The guinea pig diet should consist of three main components: high-quality timothy hay, fortified guinea pig pellets, and fresh vegetables. Timothy hay should make up the majority of their diet and should be available 24/7. It provides essential fiber for digestive health and helps wear down their continuously growing teeth. Adult guinea pigs should receive about 1/4 cup of high-quality, vitamin C-fortified pellets daily.</p>
+                    
+                    <p>Fresh vegetables are essential for vitamin C intake and should be introduced gradually to prevent digestive upset. Excellent choices include bell peppers (especially red ones), leafy greens like romaine lettuce and kale, broccoli, cucumber, and carrots in moderation. Fruits should be given sparingly as treats due to their high sugar content. Foods to avoid include iceberg lettuce, onions, garlic, chocolate, potatoes, and any processed human foods.</p>
+                    
+                    <h3>Social Needs and Behavior</h3>
+                    <p>Guinea pigs are inherently social animals that thrive in the company of their own species. In the wild, they live in groups and have complex social structures. As pets, guinea pigs are much happier and healthier when kept in pairs or small groups. A solitary guinea pig may become depressed, stressed, or develop behavioral issues.</p>
+                    
+                    <p>When introducing guinea pigs, it's important to do so gradually and in a neutral territory. Same-sex pairs or groups typically work best, though spayed/neutered mixed groups can also succeed. Watch for signs of good social bonding such as grooming each other, sharing food, and sleeping together. However, some fighting is normal as they establish hierarchy – intervene only if the fighting becomes severe or one pig is being bullied.</p>
+                    
+                    <p>Guinea pigs communicate through various vocalizations and body language. Common sounds include wheeking (excitement, especially at feeding time), purring (contentment), chattering (warning or irritation), and rumblestrutting (dominance behavior). Understanding these communications will help you better respond to your pet's needs and emotions.</p>
+                    
+                    <h3>Health Care and Veterinary Needs</h3>
+                    <p>Preventive health care is essential for guinea pigs, as they are prey animals that instinctively hide signs of illness. Regular health checks at home and professional veterinary care are crucial for early detection and treatment of potential problems. Find an exotic pet veterinarian familiar with guinea pigs before you need one – many general practice vets have limited experience with these animals.</p>
+                    
+                    <p>Daily health observations should include checking for changes in appetite, water consumption, activity level, and bathroom habits. Weekly weight checks can help detect problems early, as weight loss is often the first sign of illness. Monitor their eyes for discharge, check their teeth for overgrowth or misalignment, and examine their skin for parasites, wounds, or unusual lumps.</p>
+                    
+                    <p>Common health issues in guinea pigs include respiratory infections, dental problems, scurvy (vitamin C deficiency), urinary tract issues, and skin conditions. Signs of illness may include lethargy, loss of appetite, difficulty breathing, discharge from eyes or nose, teeth grinding, or changes in urination habits. Any concerning symptoms warrant immediate veterinary attention, as guinea pigs can deteriorate rapidly when ill.</p>
+                    
+                    <h3>Exercise and Enrichment</h3>
+                    <p>Mental and physical stimulation are vital components of guinea pig care. These intelligent animals need regular exercise and environmental enrichment to prevent boredom and maintain physical health. Daily floor time in a secure, guinea pig-proofed area allows them to explore, run, and exercise their natural behaviors.</p>
+                    
+                    <p>Provide various toys and activities to keep your guinea pig mentally engaged. Tunnels, hidey-holes, chew toys made from safe materials, and puzzle feeders can provide hours of entertainment. Rotate toys regularly to maintain interest and prevent boredom.</p>
+                    
+                    <h3>Grooming and Maintenance</h3>
+                    <p>Regular grooming helps maintain your guinea pig's health and strengthens your bond. Long-haired breeds require daily brushing to prevent matting, while short-haired varieties benefit from weekly brushing. Nail trimming should be done monthly to prevent overgrowth and injury. Bath your guinea pig only when necessary, as frequent bathing can dry their skin.</p>
+                    
+                    <h3>Creating a Safe Environment</h3>
+                    <p>Guinea pig-proofing your home is essential for their safety during floor time. Remove or protect electrical cords, toxic plants, small objects that could be swallowed, and block access to areas where they could get stuck or injured. Always supervise floor time and ensure the temperature is comfortable – guinea pigs are sensitive to heat and cold.</p>
+                    
+                    <h3>Conclusion</h3>
+                    <p>Caring for guinea pigs is both rewarding and responsibility-intensive. With proper housing, nutrition, veterinary care, and attention to their social and emotional needs, guinea pigs can live 5-8 years and provide countless hours of joy and companionship. Remember that each guinea pig is an individual with unique personality traits and preferences. Take time to observe and understand your pet's specific needs and behaviors for the best possible care experience.</p>
+                </div>
+            </div>
+
+            <!-- Tips Page -->
+            <div id="tips" class="page">
+                <div class="content-card">
+                    <h2>25 Essential Guinea Pig Care Tips</h2>
+                    <div class="tips-grid">
+                        <div class="tip-card">
+                            <div class="tip-number">1</div>
+                            <div class="tip-title">Always Keep Guinea Pigs in Pairs</div>
+                            <div class="tip-content">Guinea pigs are social animals and can become depressed when alone. Keep at least two together for their mental health and happiness.</div>
+                        </div>
+                        
+                        <div class="tip-card">
+                            <div class="tip-number">2</div>
+                            <div class="tip-title">Provide Unlimited Timothy Hay</div>
+                            <div class="tip-content">Timothy hay should be available 24/7. It aids digestion, wears down teeth, and provides essential fiber for optimal health.</div>
+                        </div>
+                        
+                        <div class="tip-card">
+                            <div class="tip-number">3</div>
+                            <div class="tip-title">Feed Fresh Vitamin C Daily</div>
+                            <div class="tip-content">Guinea pigs can't produce vitamin C. Provide bell peppers, leafy greens, or vitamin C supplements to prevent scurvy.</div>
+                        </div>
+                        
+                        <div class="tip-card">
+                            <div class="tip-number">4</div>
+                            <div class="tip-title">Use Appropriate Cage Size</div>
+                            <div class="tip-content">Minimum 7.5 sq ft for one pig, 10.5 sq ft for two. Bigger is always better for their physical and mental well-being.</div>
+                        </div>
+                        
+                        <div class="tip-card">
+                            <div class="tip-number">5</div>
+                            <div class="tip-title">Avoid Cedar and Pine Bedding</div>
+                            <div class="tip-content">These wood shavings can cause respiratory issues. Use paper-based bedding, aspen shavings, or fleece instead.</div>
+                        </div>
+                        
+                        <div class="tip-card">
+                            <div class="tip-number">6</div>
+                            <div class="tip-title">Clean Water Daily</div>
+                            <div class="tip-content">Change water bottles daily and clean them regularly to prevent bacterial growth and ensure fresh hydration.</div>
+                        </div>
+                        
+                        <div class="tip-card">
+                            <div class="tip-number">7</div>
+                            <div class="tip-title">Weigh Weekly</div>
+                            <div class="tip-content">Regular weight checks help detect health problems early. Sudden weight loss often indicates illness.</div>
+                        </div>
+                        
+                        <div class="tip-card">
+                            <div class="tip-number">8</div>
+                            <div class="tip-title">Trim Nails Monthly</div>
+                            <div class="tip-content">Regular nail trimming prevents overgrowth, injury, and discomfort. Use small animal nail clippers for best results.</div>
+                        </div>
+                        
+                        <div class="tip-card">
+                            <div class="tip-number">9</div>
+                            <div class="tip-title">Provide Daily Floor Time</div>
+                            <div class="tip-content">Allow supervised exploration in a guinea pig-proofed area for exercise and mental stimulation daily.</div>
+                        </div>
+                        
+                        <div class="tip-card">
+                            <div class="tip-number">10</div>
+                            <div class="tip-title">Find an Exotic Pet Veterinarian</div>
+                            <div class="tip-content">Locate a vet experienced with guinea pigs before you need one. Many general vets lack guinea pig expertise.</div>
+                        </div>
+                        
+                        <div class="tip-card">
+                            <div class="tip-number">11</div>
+                            <div class="tip-title">Monitor Temperature Carefully</div>
+                            <div class="tip-content">Keep guinea pigs at 65-75°F (18-24°C). They're sensitive to heat and cold extremes and can develop heatstroke easily.</div>
+                        </div>
+                        
+                        <div class="tip-card">
+                            <div class="tip-number">12</div>
+                            <div class="tip-title">Introduce New Foods Gradually</div>
+                            <div class="tip-content">Add new vegetables slowly, one at a time, to monitor for digestive upset and identify any food sensitivities.</div>
+                        </div>
+                        
+                        <div class="tip-card">
+                            <div class="tip-number">13</div>
+                            <div class="tip-title">Provide Multiple Hiding Spots</div>
+                            <div class="tip-content">Guinea pigs need secure places to retreat when stressed. Provide at least one hideout per pig in the cage.</div>
+                        </div>
+                        
+                        <div class="tip-card">
+                            <div class="tip-number">14</div>
+                            <div class="tip-title">Watch for Dental Problems</div>
+                            <div class="tip-content">Guinea pig teeth grow continuously. Monitor for overgrowth, misalignment, or difficulty eating that may require veterinary attention.</div>
+                        </div>
+                        
+                        <div class="tip-card">
+                            <div class="tip-number">15</div>
+                            <div class="tip-title">Avoid Wire-Bottom Cages</div>
+                            <div class="tip-content">Wire floors can injure delicate guinea pig feet and cause painful bumblefoot infections. Use solid-bottom cages only.</div>
+                        </div>
+                        
+                        <div class="tip-card">
+                            <div class="tip-number">16</div>
+                            <div class="tip-title">Recognize Illness Signs Early</div>
+                            <div class="tip-content">Watch for appetite loss, lethargy, breathing difficulties, or behavior changes. Guinea pigs hide illness well, so subtle changes matter.</div>
+                        </div>
+                        
+                        <div class="tip-card">
+                            <div class="tip-number">17</div>
+                            <div class="tip-title">Keep Males Separated or Neutered</div>
+                            <div class="tip-content">Intact male guinea pigs may fight. Consider neutering or keeping them in separate cages if aggression occurs.</div>
+                        </div>
+                        
+                        <div class="tip-card">
+                            <div class="tip-number">18</div>
+                            <div class="tip-title">Provide Mental Stimulation</div>
+                            <div class="tip-content">Rotate toys, create obstacle courses, and hide treats to keep guinea pigs mentally engaged and prevent boredom.</div>
+                        </div>
+                        
+                        <div class="tip-card">
+                            <div class="tip-number">19</div>
+                            <div class="tip-title">Handle Gently and Support Body</div>
+                            <div class="tip-content">Always support guinea pigs' hindquarters when lifting. Never grab by the scruff or lift with only front legs supported.</div>
+                        </div>
+                        
+                        <div class="tip-card">
+                            <div class="tip-number">20</div>
+                            <div class="tip-title">Quarantine New Guinea Pigs</div>
+                            <div class="tip-content">Keep new guinea pigs separate for 2-3 weeks to monitor for illness before introducing them to existing pets.</div>
+                        </div>
+                        
+                        <div class="tip-card">
+                            <div class="tip-number">21</div>
+                            <div class="tip-title">Brush Long-Haired Breeds Daily</div>
+                            <div class="tip-content">Peruvian, Silkie, and other long-haired guinea pigs require daily brushing to prevent painful matting of their coat.</div>
+                        </div>
+                        
+                        <div class="tip-card">
+                            <div class="tip-number">22</div>
+                            <div class="tip-title">Learn Guinea Pig Sounds</div>
+                            <div class="tip-content">Understanding wheeking, purring, chattering, and other vocalizations helps you respond to your guinea pig's needs and emotions.</div>
+                        </div>
+                        
+                        <div class="tip-card">
+                            <div class="tip-number">23</div>
+                            <div class="tip-title">Avoid Processed Foods</div>
+                            <div class="tip-content">Never feed guinea pigs chocolate, onions, garlic, processed foods, or anything high in sugar, salt, or fat.</div>
+                        </div>
+                        
+                        <div class="tip-card">
+                            <div class="tip-number">24</div>
+                            <div class="tip-title">Check for Parasites Regularly</div>
+                            <div class="tip-content">Look for mites, lice, or fungal infections. Scratching, hair loss, or skin irritation may indicate parasites requiring treatment.</div>
+                        </div>
+                        
+                        <div class="tip-card">
+                            <div class="tip-number">25</div>
+                            <div class="tip-title">Establish Daily Routines</div>
+                            <div class="tip-content">Guinea pigs thrive on routine. Feed, clean, and interact with them at consistent times daily for reduced stress and better health.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Login Page -->
+            <div id="login" class="page">
+                <div class="form-container">
+                    <h2 style="text-align: center; margin-bottom: 30px; color: #2c3e50;">Login to Your Account</h2>
+                    <form id="loginForm" onsubmit="handleLogin(event)">
+                        <div class="form-group">
+                            <label for="loginEmail">Email Address</label>
+                            <input type="email" id="loginEmail" name="email" placeholder="Enter your email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="loginPassword">Password</label>
+                            <input type="password" id="loginPassword" name="password" placeholder="Enter your password" required>
+                        </div>
+                        <div class="loading-spinner" id="loginSpinner"></div>
+                        <div class="success-message" id="loginSuccess"></div>
+                        <div class="error-message" id="loginError"></div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%; margin-bottom: 20px;">Login</button>
+                        <p style="text-align: center; color: #7f8c8d;">Don't have an account? <a href="#" onclick="showPage('signup')" style="color: #3498db;">Sign up here</a></p>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Signup Page -->
+            <div id="signup" class="page">
+                <div class="form-container">
+                    <h2 style="text-align: center; margin-bottom: 30px; color: #2c3e50;">Create Your Account</h2>
+                    <form id="signupForm" onsubmit="handleSignup(event)">
+                        <div class="form-group">
+                            <label for="signupFirstName">First Name</label>
+                            <input type="text" id="signupFirstName" name="firstName" placeholder="Enter your first name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="signupLastName">Last Name</label>
+                            <input type="text" id="signupLastName" name="lastName" placeholder="Enter your last name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="signupEmail">Email Address</label>
+                            <input type="email" id="signupEmail" name="email" placeholder="Enter your email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="signupPassword">Password</label>
+                            <input type="password" id="signupPassword" name="password" placeholder="Create a password" minlength="6" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="signupConfirmPassword">Confirm Password</label>
+                            <input type="password" id="signupConfirmPassword" name="confirmPassword" placeholder="Confirm your password" minlength="6" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="guineaPigCount">How many guinea pigs do you have?</label>
+                            <input type="number" id="guineaPigCount" name="guineaPigCount" placeholder="Number of guinea pigs" min="0" max="20">
+                        </div>
+                        <div class="loading-spinner" id="signupSpinner"></div>
+                        <div class="success-message" id="signupSuccess"></div>
+                        <div class="error-message" id="signupError"></div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%; margin-bottom: 20px;">Create Account</button>
+                        <p style="text-align: center; color: #7f8c8d;">Already have an account? <a href="#" onclick="showPage('login')" style="color: #3498db;">Login here</a></p>
+                    </form>
+                </div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <p>&copy; 2025 Guinea Pig Paradise. All rights reserved. | Made with ❤️ for guinea pig lovers everywhere.</p>
+            <p>Professional veterinary advice should always be sought for serious health concerns.</p>
+        </footer>
+    </div>
+
+    <script>
+        // User management
+        let currentUser = null;
+        let users = {};
+
+        // Page navigation
+        function showPage(pageId) {
+            // Hide all pages
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => {
+                page.classList.remove('active');
+            });
+
+            // Show selected page
+            const targetPage = document.getElementById(pageId);
+            if (targetPage) {
+                targetPage.classList.add('active');
+            }
+
+            // Update navigation active states
+            const navLinks = document.querySelectorAll('.nav-links a');
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+            });
+
+            const activeLink = document.querySelector(`[onclick="showPage('${pageId}')"]`);
+            if (activeLink) {
+                activeLink.classList.add('active');
+            }
+
+            // Handle auth pages
+            if (pageId === 'login' || pageId === 'signup') {
+                clearMessages();
+            }
+        }
+
+        // Authentication functions
+        function handleLogin(event) {
+            event.preventDefault();
+            
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            showSpinner('loginSpinner');
+            clearMessages();
+            
+            // Simulate API call delay
+            setTimeout(() => {
+                hideSpinner('loginSpinner');
+                
+                // Check if user exists and password matches
+                if (users[email] && users[email].password === password) {
+                    currentUser = users[email];
+                    showLoginSuccess('Login successful! Welcome back, ' + currentUser.firstName + '!');
+                    setTimeout(() => {
+                        updateAuthDisplay();
+                        showPage('home');
+                    }, 1500);
+                } else {
+                    showError('loginError', 'Invalid email or password. Please try again.');
+                }
+            }, 1000);
+        }
+
+        function handleSignup(event) {
+            event.preventDefault();
+            
+            const formData = new FormData(event.target);
+            const userData = {
+                firstName: formData.get('firstName'),
+                lastName: formData.get('lastName'),
+                email: formData.get('email'),
+                password: formData.get('password'),
+                confirmPassword: formData.get('confirmPassword'),
+                guineaPigCount: formData.get('guineaPigCount') || 0
+            };
+            
+            showSpinner('signupSpinner');
+            clearMessages();
+            
+            // Validation
+            if (userData.password !== userData.confirmPassword) {
+                hideSpinner('signupSpinner');
+                showError('signupError', 'Passwords do not match!');
+                return;
+            }
+            
+            if (users[userData.email]) {
+                hideSpinner('signupSpinner');
+                showError('signupError', 'An account with this email already exists!');
+                return;
+            }
+            
+            // Simulate API call delay
+            setTimeout(() => {
+                hideSpinner('signupSpinner');
+                
+                // Create new user
+                users[userData.email] = {
+                    firstName: userData.firstName,
+                    lastName: userData.lastName,
+                    email: userData.email,
+                    password: userData.password,
+                    guineaPigCount: parseInt(userData.guineaPigCount),
+                    joinDate: new Date().toLocaleDateString()
+                };
+                
+                showSuccess('signupSuccess', 'Account created successfully! You can now login.');
+                document.getElementById('signupForm').reset();
+                
+                setTimeout(() => {
+                    showPage('login');
+                }, 2000);
+            }, 1000);
+        }
+
+        function logout() {
+            currentUser = null;
+            updateAuthDisplay();
+            showPage('home');
+            
+            // Show logout success message briefly
+            const successDiv = document.createElement('div');
+            successDiv.className = 'success-message';
+            successDiv.style.display = 'block';
+            successDiv.style.position = 'fixed';
+            successDiv.style.top = '20px';
+            successDiv.style.left = '50%';
+            successDiv.style.transform = 'translateX(-50%)';
+            successDiv.style.zIndex = '1000';
+            successDiv.textContent = 'Successfully logged out!';
+            document.body.appendChild(successDiv);
+            
+            setTimeout(() => {
+                document.body.removeChild(successDiv);
+            }, 3000);
+        }
+
+        function updateAuthDisplay() {
+            const authButtons = document.getElementById('authButtons');
+            const userInfo = document.getElementById('userInfo');
+            const userAvatar = document.getElementById('userAvatar');
+            const userName = document.getElementById('userName');
+            
+            if (currentUser) {
+                authButtons.style.display = 'none';
+                userInfo.style.display = 'block';
+                userAvatar.textContent = currentUser.firstName.charAt(0).toUpperCase();
+                userName.textContent = `Welcome, ${currentUser.firstName}!`;
+            } else {
+                authButtons.style.display = 'flex';
+                userInfo.style.display = 'none';
+            }
+        }
+
+        // Utility functions
+        function showSpinner(spinnerId) {
+            document.getElementById(spinnerId).style.display = 'block';
+        }
+
+        function hideSpinner(spinnerId) {
+            document.getElementById(spinnerId).style.display = 'none';
+        }
+
+        function showSuccess(elementId, message) {
+            const element = document.getElementById(elementId);
+            element.textContent = message;
+            element.style.display = 'block';
+        }
+
+        function showLoginSuccess(message) {
+            showSuccess('loginSuccess', message);
+        }
+
+        function showError(elementId, message) {
+            const element = document.getElementById(elementId);
+            element.textContent = message;
+            element.style.display = 'block';
+        }
+
+        function clearMessages() {
+            const messages = document.querySelectorAll('.success-message, .error-message');
+            messages.forEach(msg => {
+                msg.style.display = 'none';
+                msg.textContent = '';
+            });
+        }
+
+        // Floating bubbles animation
+        function createBubbles() {
+            const bubblesContainer = document.querySelector('.floating-bubbles');
+            const bubbleCount = 15;
+            
+            for (let i = 0; i < bubbleCount; i++) {
+                const bubble = document.createElement('div');
+                bubble.className = 'bubble';
+                
+                // Random size between 20-80px
+                const size = Math.random() * 60 + 20;
+                bubble.style.width = size + 'px';
+                bubble.style.height = size + 'px';
+                
+                // Random position
+                bubble.style.left = Math.random() * 100 + '%';
+                bubble.style.top = Math.random() * 100 + '%';
+                
+                // Random animation delay
+                bubble.style.animationDelay = Math.random() * 15 + 's';
+                
+                // Random animation duration
+                bubble.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                
+                bubblesContainer.appendChild(bubble);
+            }
+        }
+
+        // Initialize the website
+        function initialize() {
+            createBubbles();
+            updateAuthDisplay();
+            
+            // Add some demo users for testing
+            users['demo@example.com'] = {
+                firstName: 'Demo',
+                lastName: 'User',
+                email: 'demo@example.com',
+                password: 'demo123',
+                guineaPigCount: 2,
+                joinDate: '1/1/2024'
+            };
+            
+            users['john@example.com'] = {
+                firstName: 'John',
+                lastName: 'Smith',
+                email: 'john@example.com',
+                password: 'password123',
+                guineaPigCount: 3,
+                joinDate: '2/15/2024'
+            };
+        }
+
+        // Form validation enhancements
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+
+        function validatePassword(password) {
+            return password.length >= 6;
+        }
+
+        // Real-time form validation
+        document.addEventListener('DOMContentLoaded', function() {
+            // Email validation
+            const emailInputs = document.querySelectorAll('input[type="email"]');
+            emailInputs.forEach(input => {
+                input.addEventListener('blur', function() {
+                    if (this.value && !validateEmail(this.value)) {
+                        this.style.borderColor = '#e74c3c';
+                    } else {
+                        this.style.borderColor = '';
+                    }
+                });
+            });
+            
+            // Password validation
+            const passwordInputs = document.querySelectorAll('input[type="password"]');
+            passwordInputs.forEach(input => {
+                input.addEventListener('input', function() {
+                    if (this.value && !validatePassword(this.value)) {
+                        this.style.borderColor = '#e74c3c';
+                    } else {
+                        this.style.borderColor = '';
+                    }
+                });
+            });
+            
+            // Confirm password validation
+            const confirmPasswordInput = document.getElementById('signupConfirmPassword');
+            const passwordInput = document.getElementById('signupPassword');
+            
+            if (confirmPasswordInput && passwordInput) {
+                confirmPasswordInput.addEventListener('input', function() {
+                    if (this.value && this.value !== passwordInput.value) {
+                        this.style.borderColor = '#e74c3c';
+                    } else {
+                        this.style.borderColor = '';
+                    }
+                });
+            }
+        });
+
+        // Smooth scrolling for better UX
+        function smoothScrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Add click handlers for navigation
+        document.addEventListener('click', function(e) {
+            if (e.target.matches('.nav-links a')) {
+                smoothScrollToTop();
+            }
+        });
+
+        // Enhanced user experience features
+        function showToast(message, type = 'success') {
+            const toast = document.createElement('div');
+            toast.className = `${type}-message`;
+            toast.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                z-index: 1000;
+                display: block;
+                min-width: 250px;
+                padding: 15px 20px;
+                border-radius: 10px;
+                font-weight: 600;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                transform: translateX(100%);
+                transition: transform 0.3s ease;
+            `;
+            toast.textContent = message;
+            
+            document.body.appendChild(toast);
+            
+            // Animate in
+            setTimeout(() => {
+                toast.style.transform = 'translateX(0)';
+            }, 100);
+            
+            // Remove after 4 seconds
+            setTimeout(() => {
+                toast.style.transform = 'translateX(100%)';
+                setTimeout(() => {
+                    if (document.body.contains(toast)) {
+                        document.body.removeChild(toast);
+                    }
+                }, 300);
+            }, 4000);
+        }
+
+        // Keyboard navigation support
+        document.addEventListener('keydown', function(e) {
+            // Get current active page
+            const activePage = document.querySelector('.page.active');
+            const currentPageId = activePage ? activePage.id : 'home';
+            
+            // Disable keyboard navigation on login and signup pages
+            if (currentPageId === 'login' || currentPageId === 'signup') {
+                // Only allow Escape key to go home from auth pages
+                if (e.key === 'Escape') {
+                    showPage('home');
+                }
+                return;
+            }
+            
+            // Press 'Escape' to go to home page
+            if (e.key === 'Escape') {
+                showPage('home');
+            }
+            
+            // Press numbers 1-5 to navigate
+            const keyMap = {
+                '1': 'home',
+                '2': 'about',
+                '3': 'guide',
+                '4': 'tips',
+                '5': 'login'
+            };
+            
+            if (keyMap[e.key]) {
+                showPage(keyMap[e.key]);
+            }
+        });
+
+        // Initialize everything when the page loads
+        window.addEventListener('load', initialize);
+    </script>
+</body>
+</html>
